@@ -12,6 +12,7 @@ def create_subset(data, labels, size=50):
 
 
 def create_subsets(data, labels, size=5000, is_save=True, save_path="/home/gorkem/datasets/mnist_subsets/"):
+    save_path = save_path + str(size) + "/"
     Path(save_path).mkdir(parents=True, exist_ok=True)
     np.random.seed(42)
     inds = np.arange(data.shape[0])
@@ -37,9 +38,13 @@ def create_subsets(data, labels, size=5000, is_save=True, save_path="/home/gorke
             if is_save:
                 np.save(save_path + "X_" + str(size) + "_" + str(i), X)
                 np.save(save_path + "y_" + str(size) + "_" + str(i), y)
-    return X_all, y_all
+    if is_save:
+        return X_all, y_all, save_path
+    else:
+        return X_all, y_all
 
 
+# run this function to create just one random subset
 def mnist_subset(mnist_folder="/home/gorkem/datasets/", size=5000, is_train=True):
     Path(mnist_folder).mkdir(parents=True, exist_ok=True)
 
@@ -57,6 +62,7 @@ def mnist_subset(mnist_folder="/home/gorkem/datasets/", size=5000, is_train=True
     return sX, sy
 
 
+# Run this function to create subsets
 def mnist_subsets(mnist_folder="/home/gorkem/datasets/", size=5000, is_train=True, is_save=True):
     Path(mnist_folder).mkdir(parents=True, exist_ok=True)
 
@@ -65,11 +71,9 @@ def mnist_subsets(mnist_folder="/home/gorkem/datasets/", size=5000, is_train=Tru
         mnist_trainset = datasets.MNIST(root=mnist_folder, train=True, download=True, transform=None)
         X_train = mnist_trainset.data.numpy()
         y_train = mnist_trainset.targets.numpy()
-        sX, sy = create_subsets(data=X_train, labels=y_train, size=size, is_save=is_save)
+        return create_subsets(data=X_train, labels=y_train, size=size, is_save=is_save)
     else:
         mnist_testset = datasets.MNIST(root=mnist_folder, train=False, download=True, transform=None)
         X_test = mnist_testset.data.numpy()
         y_test = mnist_testset.data.numpy()
-        sX, sy = create_subsets(data=X_test, labels=y_test, size=size, is_save=is_save)
-    return sX, sy
-
+        return create_subsets(data=X_test, labels=y_test, size=size, is_save=is_save)
