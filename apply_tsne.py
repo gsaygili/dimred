@@ -22,6 +22,17 @@ def plot_embedding(X_d, y):
     plt.show()
 
 
+def plot_embedding_with_errors(X_d, y, err_list):
+    labels = str(y).strip('[]')
+    plt.figure()
+    colors = 'r', 'g', 'b', 'c', 'm', 'y', 'k', 'olive', 'orange', 'purple'
+    for i, c in zip(y, colors):
+        plt.scatter(X_d[y == i, 0], X_d[y == i, 1], c=c, s=3)
+    for i in range(err_list.shape[0]):
+        plt.scatter(X_d[err_list[i], 0], X_d[err_list[i], 1], color="none", edgecolor="red", s=35)
+    plt.show()
+
+
 def apply_tsne_subsets(dim=2, perplexity=30, size=5000, mnist_folder="/home/gorkem/datasets/"):
     _, _, save_path = mnist.mnist_subsets(mnist_folder=mnist_folder, size=size)
     # find number of subsets
@@ -38,6 +49,6 @@ emb_folder = "/home/gorkem/datasets/mnist_subsets/5000/emb_p30/"
 y_folder = "/home/gorkem/datasets/mnist_subsets/5000/"
 Xe = np.load(emb_folder+"Xemb_0.npy")
 y = np.load(y_folder+"y_5000_0.npy")
-plot_embedding(Xe, y)
+# plot_embedding(Xe, y)
 
 
