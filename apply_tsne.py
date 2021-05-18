@@ -16,8 +16,11 @@ def plot_embedding(X_d, y):
     labels = str(y).strip('[]')
     plt.figure()
     colors = 'r', 'g', 'b', 'c', 'm', 'y', 'k', 'olive', 'orange', 'purple'
-    for i, c in zip(y, colors):
-        plt.scatter(X_d[y == i, 0], X_d[y == i, 1], c=c, s=3)
+    print(type(colors))
+    for i in np.unique(y):
+        plt.scatter(X_d[np.where(y == i), 0], X_d[np.where(y == i), 1], c=colors[i], s=3)
+    # for i, c in zip(y, colors):
+    #     plt.scatter(X_d[y == i, 0], X_d[y == i, 1], c=c, s=3)
     # plt.scatter(X_d[15, 0], X_d[15, 1], color="none", edgecolor="red")
     plt.show()
 
@@ -26,10 +29,13 @@ def plot_embedding_with_errors(X_d, y, err_list):
     labels = str(y).strip('[]')
     plt.figure()
     colors = 'r', 'g', 'b', 'c', 'm', 'y', 'k', 'olive', 'orange', 'purple'
-    for i, c in zip(y, colors):
-        plt.scatter(X_d[y == i, 0], X_d[y == i, 1], c=c, s=3)
+    for i in np.unique(y):
+        plt.scatter(X_d[np.where(y == i), 0], X_d[np.where(y == i), 1], c=colors[i], s=3)
+    # for i, c in zip(y, colors):
+    #     plt.scatter(X_d[y == i, 0], X_d[y == i, 1], c=c, s=3)
     for i in range(err_list.shape[0]):
-        plt.scatter(X_d[err_list[i], 0], X_d[err_list[i], 1], color="none", edgecolor="red", s=35)
+        plt.scatter(X_d[err_list[i], 0], X_d[err_list[i], 1], label='Example legend entry.', s=80, marker=r'o', facecolors='none',
+                edgecolors='red')
     plt.show()
 
 
