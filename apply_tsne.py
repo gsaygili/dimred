@@ -51,10 +51,10 @@ def apply_tsne_subsets(dim=2, perplexity=30, size=5000, mnist_folder="/home/gork
         np.save(save_path+"emb_p"+str(perplexity)+"/"+"Xemb_"+str(i), X_emb)
 
 
-emb_folder = "/home/gorkem/datasets/mnist_subsets/5000/emb_p30/"
-y_folder = "/home/gorkem/datasets/mnist_subsets/5000/"
-Xe = np.load(emb_folder+"Xemb_0.npy")
-y = np.load(y_folder+"y_5000_0.npy")
+# emb_folder = "/home/gorkem/datasets/mnist_subsets/5000/emb_p30/"
+# y_folder = "/home/gorkem/datasets/mnist_subsets/5000/"
+# Xe = np.load(emb_folder+"Xemb_0.npy")
+# y = np.load(y_folder+"y_5000_0.npy")
 # plot_embedding(Xe, y)
 
 

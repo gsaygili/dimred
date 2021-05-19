@@ -1,13 +1,7 @@
 import numpy as np
-import apply_tsne as at
+# import apply_tsne as at
 import scipy.spatial.distance as dist
-from matplotlib import pyplot as plt
-
-emb_folder = "/home/gorkem/datasets/mnist_subsets/5000/emb_p30/"
-y_folder = "/home/gorkem/datasets/mnist_subsets/5000/"
-Xe = np.load(emb_folder+"Xemb_0.npy")
-y = np.load(y_folder+"y_5000_0.npy")
-# at.plot_embedding(Xe, y)
+# from matplotlib import pyplot as plt
 
 
 def find_errors_majority(X_emb, labels, K=20):
@@ -33,18 +27,22 @@ def find_errors_nearest(X_emb, labels):
     sort_index = np.argsort(X_d)
     error_list = []
     for i in range(X_d.shape[0]):
-        nearest_neigh = y[sort_index[i, 1]]
-        if y[i] != nearest_neigh:
+        nearest_neigh = labels[sort_index[i, 1]]
+        if labels[i] != nearest_neigh:
             error_list.append(i)
     err = np.array(error_list)
     return err
 
 
-# plot errors
-errs_m = find_errors_majority(Xe, y)
-at.plot_embedding(Xe, y)
-plt.figure(1)
-at.plot_embedding_with_errors(Xe, y, errs_m)
-errs_n = find_errors_nearest(Xe, y)
-at.plot_embedding_with_errors(Xe, y, errs_n)
-plt.figure(2)
+# # plot errors
+# emb_folder = "/home/gorkem/datasets/mnist_subsets/5000/emb_p30/"
+# y_folder = "/home/gorkem/datasets/mnist_subsets/5000/"
+# Xe = np.load(emb_folder+"Xemb_0.npy")
+# y = np.load(y_folder+"y_5000_0.npy")
+# errs_m = find_errors_majority(Xe, y)
+# at.plot_embedding(Xe, y)
+# plt.figure(1)
+# at.plot_embedding_with_errors(Xe, y, errs_m)
+# errs_n = find_errors_nearest(Xe, y)
+# at.plot_embedding_with_errors(Xe, y, errs_n)
+# plt.figure(2)
