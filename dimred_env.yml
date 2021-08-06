@@ -15,4 +15,4 @@ dependencies:
   - jupyter=1.0.0
   - pytorch=1.1.0
   - torchvision=0.2.2
-  
+  - keras=2.4.3

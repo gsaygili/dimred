@@ -9,6 +9,7 @@ from keras.layers import SimpleRNN
 from keras.layers import LSTM
 from keras import optimizers
 import scipy.io as sio
+from sys import platform
 
 
 def evaluate_model_lstm(X_train, y_train, X_test, y_test, n_features):
@@ -32,8 +33,16 @@ def evaluate_model_lstm(X_train, y_train, X_test, y_test, n_features):
     return score[1], y_predict, model, y_prdlabel
 
 
-emb_folder = "/home/gorkem/datasets/mnist_subsets/5000/emb_p30/"
-y_folder = "/home/gorkem/datasets/mnist_subsets/5000/"
+if platform == "linux" or platform == "linux2":
+    emb_folder = "/home/gorkem/datasets/mnist_subsets/5000/emb_p30/"
+    y_folder = "/home/gorkem/datasets/mnist_subsets/5000/"
+elif platform == "darwin":
+    emb_folder = "/home/gorkem/datasets/mnist_subsets/5000/emb_p30/"
+    y_folder = "/home/gorkem/datasets/mnist_subsets/5000/"
+elif platform == "win32":
+    emb_folder = "C:/Users/gsayg/Dropbox/datasets/mnist_subsets/5000/emb_p30/"
+    y_folder = "C:/Users/gsayg/Dropbox/datasets/mnist_subsets/5000/"
+
 
 X_tr = np.load(emb_folder + "Xemb_0.npy")
 x_train = np.load(emb_folder + "features_euc_corr_0.npy")
@@ -51,6 +60,6 @@ y_te_ind = err.find_errors_majority(X_te, y_te)
 y_test = np.zeros(X_te.shape[0])
 y_test[y_te_ind] = 1
 
-acc, y_predict, model, y_label = evaluate_model_lstm(x_train, y_train, x_test, y_test, 2)
+acc, y_predict, model, y_label = evaluate_model_lstm(x_train, y_train, x_test, y_test, 4)
 print("accuracy: ", acc)
 
