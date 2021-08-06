@@ -45,5 +45,5 @@ def plot_embedding_with_errors_and_corrects(X_d, y, err_list, corr_list):
     for i in range(corr_list.shape[0]):
         plt.scatter(X_d[corr_list[i], 0], X_d[corr_list[i], 1], label='Example legend entry.', s=80, marker=r'o',
                     facecolors='none',
-                    edgecolors='blue')
+                    edgecolors='green')
     plt.show()
