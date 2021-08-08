@@ -15,6 +15,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 import pandas as pd
 
+
 def evaluate_model_lstm(X_train, y_train, X_test, y_test, n_features):
     model = Sequential()
     model.add(LSTM(32,  activation='tanh', return_sequences=True, input_shape=(None, n_features)))
