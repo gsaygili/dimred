@@ -36,7 +36,7 @@ def extract_euc_seuc_corr_cheby_feats(K=20, sample_id=0):
     X = np.load(y_folder + "X_5000_" + str(sample_id) + ".npy")
     X = X.reshape((X.shape[0], X.shape[1] * X.shape[2]))
 
-    features = np.zeros((X.shape[0], K, 7))
+    features = np.zeros((X.shape[0], K, 6))
     X_d = dist.squareform(dist.pdist(Xe, "euclidean"))
     sort_index_d = np.argsort(X_d)
 
@@ -54,20 +54,6 @@ def extract_euc_seuc_corr_cheby_feats(K=20, sample_id=0):
     print(np.any(np.isnan(features)))
     print("--- Euclidean takes: %s seconds ---" % (time.time() - start_time))
 
-    # calculate euclidean distance
-    print("Calculating Standardized Euclidean Distances")
-    start_time = time.time()
-    X_D = dist.squareform(dist.pdist(X, "seuclidean"))
-    sort_D = np.sort(X_D)
-    for i in range(X_D.shape[0]):
-        cost = X_D[i, :]
-        s_D = sort_D[i, 1:K + 1]
-        s_d = cost[sort_index_d[i, 1:K + 1]]
-        features[i, :, 1] = normalize(np.abs(s_D - s_d))
-
-    print(np.any(np.isnan(features)))
-    print("--- Standardized Euclidean takes: %s seconds ---" % (time.time() - start_time))
-
     # calculate cosine distance
     print("Calculating Cosine Distances")
     start_time = time.time()
@@ -77,7 +63,7 @@ def extract_euc_seuc_corr_cheby_feats(K=20, sample_id=0):
         cost = X_D[i, :]
         s_D = sort_D[i, 1:K+1]
         s_d = cost[sort_index_d[i, 1:K+1]]
-        features[i, :, 2] = normalize(np.abs(s_D - s_d))
+        features[i, :, 1] = normalize(np.abs(s_D - s_d))
 
     # normalize the scores
     print(np.any(np.isnan(features)))
@@ -91,7 +77,7 @@ def extract_euc_seuc_corr_cheby_feats(K=20, sample_id=0):
         cost = X_D[i, :]
         s_D = sort_D[i, 1:K + 1]
         s_d = cost[sort_index_d[i, 1:K + 1]]
-        features[i, :, 3] = normalize(np.abs(s_D - s_d))
+        features[i, :, 2] = normalize(np.abs(s_D - s_d))
 
     print(np.any(np.isnan(features)))
     print("--- correlation takes: %s seconds ---" % (time.time() - start_time))
@@ -104,7 +90,7 @@ def extract_euc_seuc_corr_cheby_feats(K=20, sample_id=0):
         cost = X_D[i, :]
         s_D = sort_D[i, 1:K + 1]
         s_d = cost[sort_index_d[i, 1:K + 1]]
-        features[i, :, 4] = normalize(np.abs(s_D - s_d))
+        features[i, :, 3] = normalize(np.abs(s_D - s_d))
 
     print(np.any(np.isnan(features)))
     print("--- chebyshev takes: %s seconds ---" % (time.time() - start_time))
@@ -117,7 +103,7 @@ def extract_euc_seuc_corr_cheby_feats(K=20, sample_id=0):
         cost = X_D[i, :]
         s_D = sort_D[i, 1:K + 1]
         s_d = cost[sort_index_d[i, 1:K + 1]]
-        features[i, :, 5] = normalize(np.abs(s_D - s_d))
+        features[i, :, 4] = normalize(np.abs(s_D - s_d))
     print(np.any(np.isnan(features)))
     print("--- canberra takes: %s seconds ---" % (time.time() - start_time))
 
@@ -129,7 +115,7 @@ def extract_euc_seuc_corr_cheby_feats(K=20, sample_id=0):
         cost = X_D[i, :]
         s_D = sort_D[i, 1:K + 1]
         s_d = cost[sort_index_d[i, 1:K + 1]]
-        features[i, :, 6] = normalize(np.abs(s_D - s_d))
+        features[i, :, 5] = normalize(np.abs(s_D - s_d))
     print(np.any(np.isnan(features)))
     print("--- braycurtis takes: %s seconds ---" % (time.time() - start_time))
 

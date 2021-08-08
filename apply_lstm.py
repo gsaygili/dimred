@@ -49,12 +49,12 @@ elif platform == "win32":
 
 
 X_tr = np.load(emb_folder + "Xemb_0.npy")
-x_train = np.load(emb_folder + "features_0.npy")
+x_train = np.load(emb_folder + "avg_features_0_blocksize_5.npy")
 y_tr = np.load(y_folder + "y_5000_0.npy")
 
-X_te = np.load(emb_folder + "Xemb_1.npy")
-x_test = np.load(emb_folder + "features_1.npy")
-y_te = np.load(y_folder + "y_5000_1.npy")
+X_te = np.load(emb_folder + "Xemb_3.npy")
+x_test = np.load(emb_folder + "avg_features_3_blocksize_5.npy")
+y_te = np.load(y_folder + "y_5000_3.npy")
 
 y_tr_ind = err.find_errors_majority(X_tr, y_tr)
 y_train = np.zeros(X_tr.shape[0])

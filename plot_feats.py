@@ -18,7 +18,7 @@ elif platform == "win32":
 
 # plot the n best embbedded samples and n worst embedded samples
 X_embd = np.load(emb_folder + "Xemb_0.npy")
-x_cost = np.load(emb_folder + "features_0.npy")
+x_cost = np.load(emb_folder + "avg_features_0_blocksize_10.npy")
 y_labl = np.load(y_folder + "y_5000_0.npy")
 
 N = 10
