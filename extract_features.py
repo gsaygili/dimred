@@ -7,7 +7,20 @@ from sklearn import preprocessing
 from sys import platform
 
 
+def normalize(arr, t_min=0, t_max=1):
+    norm_arr = []
+    diff = t_max - t_min
+    diff_arr = np.max(arr) - np.min(arr)
+    for i in arr:
+        temp = (((i - np.min(arr))*diff)/diff_arr) + t_min
+        if np.isnan(temp):
+            temp = t_max
+        norm_arr.append(temp)
+    return np.array(norm_arr)
+
+
 def extract_euc_seuc_corr_cheby_feats(K=20, sample_id=0):
+    mm_scaler = preprocessing.MinMaxScaler()
     if platform == "linux" or platform == "linux2":
         emb_folder = "/home/gorkem/datasets/mnist_subsets/5000/emb_p30/"
         y_folder = "/home/gorkem/datasets/mnist_subsets/5000/"
@@ -23,7 +36,7 @@ def extract_euc_seuc_corr_cheby_feats(K=20, sample_id=0):
     X = np.load(y_folder + "X_5000_" + str(sample_id) + ".npy")
     X = X.reshape((X.shape[0], X.shape[1] * X.shape[2]))
 
-    features = np.zeros((X.shape[0], K, 4))
+    features = np.zeros((X.shape[0], K, 7))
     X_d = dist.squareform(dist.pdist(Xe, "euclidean"))
     sort_index_d = np.argsort(X_d)
 
@@ -36,10 +49,24 @@ def extract_euc_seuc_corr_cheby_feats(K=20, sample_id=0):
         cost = X_D[i, :]
         s_D = sort_D[i, 1:K+1]
         s_d = cost[sort_index_d[i, 1:K+1]]
-        features[i, :, 0] = np.abs(s_D - s_d)/(s_D[K-1] + s_d[K-1])
+        features[i, :, 0] = normalize(np.abs(s_D - s_d))
 
     print(np.any(np.isnan(features)))
     print("--- Euclidean takes: %s seconds ---" % (time.time() - start_time))
+
+    # calculate euclidean distance
+    print("Calculating Standardized Euclidean Distances")
+    start_time = time.time()
+    X_D = dist.squareform(dist.pdist(X, "seuclidean"))
+    sort_D = np.sort(X_D)
+    for i in range(X_D.shape[0]):
+        cost = X_D[i, :]
+        s_D = sort_D[i, 1:K + 1]
+        s_d = cost[sort_index_d[i, 1:K + 1]]
+        features[i, :, 1] = normalize(np.abs(s_D - s_d))
+
+    print(np.any(np.isnan(features)))
+    print("--- Standardized Euclidean takes: %s seconds ---" % (time.time() - start_time))
 
     # calculate cosine distance
     print("Calculating Cosine Distances")
@@ -50,39 +77,63 @@ def extract_euc_seuc_corr_cheby_feats(K=20, sample_id=0):
         cost = X_D[i, :]
         s_D = sort_D[i, 1:K+1]
         s_d = cost[sort_index_d[i, 1:K+1]]
-        features[i, :, 1] = np.abs(s_D - s_d)/(s_D[K-1] + s_d[K-1])
+        features[i, :, 2] = normalize(np.abs(s_D - s_d))
 
     # normalize the scores
     print(np.any(np.isnan(features)))
     print("--- Cosine takes: %s seconds ---" % (time.time() - start_time))
 
-    # calculate Minkowski distance of degree 3
+    # calculate correlation
     start_time = time.time()
-    X_D = dist.squareform(dist.pdist(X, "minkowski", p=3))
+    X_D = dist.squareform(dist.pdist(X, "correlation"))
     sort_D = np.sort(X_D)
     for i in range(X_D.shape[0]):
         cost = X_D[i, :]
         s_D = sort_D[i, 1:K + 1]
         s_d = cost[sort_index_d[i, 1:K + 1]]
-        features[i, :, 2] = np.abs(s_D - s_d)/(s_D[K-1] + s_d[K-1])
+        features[i, :, 3] = normalize(np.abs(s_D - s_d))
 
     print(np.any(np.isnan(features)))
-    print("--- Minkowski distance p=3 takes: %s seconds ---" % (time.time() - start_time))
+    print("--- correlation takes: %s seconds ---" % (time.time() - start_time))
 
-    # calculate Minkowski distance of degree 4
+    # calculate chebyshev
     start_time = time.time()
-    X_D = dist.squareform(dist.pdist(X, "minkowski", p=4))
+    X_D = dist.squareform(dist.pdist(X, "chebyshev"))
     sort_D = np.sort(X_D)
     for i in range(X_D.shape[0]):
         cost = X_D[i, :]
         s_D = sort_D[i, 1:K + 1]
         s_d = cost[sort_index_d[i, 1:K + 1]]
-        features[i, :, 3] = np.abs(s_D - s_d) / (s_D[K-1] + s_d[K-1])
+        features[i, :, 4] = normalize(np.abs(s_D - s_d))
 
     print(np.any(np.isnan(features)))
-    print("--- Minkowski distance p=4 takes: %s seconds ---" % (time.time() - start_time))
+    print("--- chebyshev takes: %s seconds ---" % (time.time() - start_time))
 
-    np.save(emb_folder + "features_euc_corr_" + str(sample_id), features)
+    # calculate canberra
+    start_time = time.time()
+    X_D = dist.squareform(dist.pdist(X, "canberra"))
+    sort_D = np.sort(X_D)
+    for i in range(X_D.shape[0]):
+        cost = X_D[i, :]
+        s_D = sort_D[i, 1:K + 1]
+        s_d = cost[sort_index_d[i, 1:K + 1]]
+        features[i, :, 5] = normalize(np.abs(s_D - s_d))
+    print(np.any(np.isnan(features)))
+    print("--- canberra takes: %s seconds ---" % (time.time() - start_time))
+
+    # calculate braycurtis
+    start_time = time.time()
+    X_D = dist.squareform(dist.pdist(X, "braycurtis"))
+    sort_D = np.sort(X_D)
+    for i in range(X_D.shape[0]):
+        cost = X_D[i, :]
+        s_D = sort_D[i, 1:K + 1]
+        s_d = cost[sort_index_d[i, 1:K + 1]]
+        features[i, :, 6] = normalize(np.abs(s_D - s_d))
+    print(np.any(np.isnan(features)))
+    print("--- braycurtis takes: %s seconds ---" % (time.time() - start_time))
+
+    np.save(emb_folder + "features_" + str(sample_id), features)
 
 
 for i in range(12):

@@ -10,21 +10,24 @@ from keras.layers import LSTM
 from keras import optimizers
 import scipy.io as sio
 from sys import platform
-
+from sklearn.metrics import roc_curve, auc, accuracy_score, confusion_matrix
+import matplotlib.pyplot as plt
+import seaborn as sns
+import pandas as pd
 
 def evaluate_model_lstm(X_train, y_train, X_test, y_test, n_features):
     model = Sequential()
-    model.add(LSTM(16,  activation='tanh', return_sequences=True, input_shape=(None, n_features)))
+    model.add(LSTM(32,  activation='tanh', return_sequences=True, input_shape=(None, n_features)))
     model.add(BatchNormalization())
     model.add(LSTM(16, activation='tanh', return_sequences=False))
     model.add(BatchNormalization())
-    model.add(Dropout(0.5))
+    model.add(Dropout(0.2))
     model.add(Dense(1, activation='sigmoid'))
     optimizer = optimizers.Adam(clipvalue=0.5)
     model.compile(loss='binary_crossentropy',
                   optimizer=optimizer,
                   metrics=['accuracy'])
-    bsize = 64
+    bsize = 16
     model.fit(X_train, y_train, validation_split=0.2, batch_size=bsize, epochs=20)
     y_predict = model.predict(X_test, batch_size=bsize)
     y_prdlabel = model.predict_classes(X_test,batch_size=bsize)
@@ -45,11 +48,11 @@ elif platform == "win32":
 
 
 X_tr = np.load(emb_folder + "Xemb_0.npy")
-x_train = np.load(emb_folder + "features_euc_corr_0.npy")
+x_train = np.load(emb_folder + "features_0.npy")
 y_tr = np.load(y_folder + "y_5000_0.npy")
 
 X_te = np.load(emb_folder + "Xemb_1.npy")
-x_test = np.load(emb_folder + "features_euc_corr_1.npy")
+x_test = np.load(emb_folder + "features_1.npy")
 y_te = np.load(y_folder + "y_5000_1.npy")
 
 y_tr_ind = err.find_errors_majority(X_tr, y_tr)
@@ -60,6 +63,42 @@ y_te_ind = err.find_errors_majority(X_te, y_te)
 y_test = np.zeros(X_te.shape[0])
 y_test[y_te_ind] = 1
 
-acc, y_predict, model, y_label = evaluate_model_lstm(x_train, y_train, x_test, y_test, 4)
+acc, y_predict, model, y_label = evaluate_model_lstm(x_train, y_train, x_test, y_test, x_train.shape[2])
 print("accuracy: ", acc)
+print('accuracy: ', accuracy_score(y_test, y_label))
+
+
+# ------------------------------
+
+fpr, tpr, thresholds = roc_curve(y_test, y_predict)
+roc_auc = auc(fpr, tpr)
+print('Area under the ROC curve : %f' % roc_auc)
+
+plt.figure(0)
+plt.title('Receiver Operating Characteristic')
+plt.plot(fpr, tpr, 'b', label='AUC = %0.2f' % roc_auc)
+plt.legend(loc='lower right')
+plt.plot([0, 1], [0, 1], 'r--')
+plt.xlim([0, 1])
+plt.ylim([0, 1])
+plt.ylabel('True Positive Rate')
+plt.xlabel('False Positive Rate')
+plt.show()
+plt.savefig('roc_curve.pdf')
+
+# ------------------------------
+# plot confusion matrix
+C = confusion_matrix(y_test, y_label)
+plt.figure()
+df_cm = pd.DataFrame(C, range(2), range(2))
+sns.set(font_scale=1.4)  # for label size
+seaplt = sns.heatmap(df_cm, annot=True, annot_kws={"size": 16})  # font size
+splt = seaplt.get_figure()
+splt.savefig('confusion_matrix.pdf')
+tn, fp, fn, tp = confusion_matrix(y_test, y_label).ravel()
+print('TP: ', tp)
+print('TN: ', tn)
+print('FP: ', fp)
+print('FN: ', fn)
+
 
