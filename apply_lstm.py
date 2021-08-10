@@ -48,13 +48,15 @@ elif platform == "win32":
     y_folder = "C:/Users/gsayg/Dropbox/datasets/mnist_subsets/5000/"
 
 
-X_tr = np.load(emb_folder + "Xemb_0.npy")
-x_train = np.load(emb_folder + "avg_features_0_blocksize_5.npy")
-y_tr = np.load(y_folder + "y_5000_0.npy")
+train_id = 0
+X_tr = np.load(emb_folder + "Xemb_"+str(train_id)+".npy")
+x_train = np.load(emb_folder + "features_"+str(train_id)+".npy")
+y_tr = np.load(y_folder + "y_5000_"+str(train_id)+".npy")
 
-X_te = np.load(emb_folder + "Xemb_3.npy")
-x_test = np.load(emb_folder + "avg_features_3_blocksize_5.npy")
-y_te = np.load(y_folder + "y_5000_3.npy")
+test_id = 11
+X_te = np.load(emb_folder + "Xemb_"+str(test_id)+".npy")
+x_test = np.load(emb_folder + "features_"+str(test_id)+".npy")
+y_te = np.load(y_folder + "y_5000_"+str(test_id)+".npy")
 
 y_tr_ind = err.find_errors_majority(X_tr, y_tr)
 y_train = np.zeros(X_tr.shape[0])

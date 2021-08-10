@@ -34,8 +34,9 @@ def plot_embedding_with_errors(X_d, y, err_list):
     # for i, c in zip(y, colors):
     #     plt.scatter(X_d[y == i, 0], X_d[y == i, 1], c=c, s=3)
     for i in range(err_list.shape[0]):
-        plt.scatter(X_d[err_list[i], 0], X_d[err_list[i], 1], label='Example legend entry.', s=80, marker=r'o', facecolors='none',
-                edgecolors='red')
+        plt.scatter(X_d[err_list[i], 0], X_d[err_list[i], 1], label='Example legend entry.', s=80, marker=r'o',
+                    facecolors='none',
+                    edgecolors='red')
     plt.show()
 
 
@@ -43,18 +44,30 @@ def apply_tsne_subsets(dim=2, perplexity=30, size=5000, mnist_folder="/home/gork
     _, _, save_path = mnist.mnist_subsets(mnist_folder=mnist_folder, size=size)
     # find number of subsets
     X_files = sorted(glob.glob(save_path+"X*.npy"))
+    loc = X_files[0].find(str(size))+len(str(size))+1
+    name = X_files[0][:loc]+'X_'+str(size)+'_'
     for i in range(len(X_files)):
-        X = np.load(X_files[i])
+        X = np.load(name+str(i)+'.npy')
         X_emb = tsne_p(X, dim=dim, perplexity=perplexity)
         # create an embedding subfolder and save with perplexity info
         Path(save_path+"emb_p"+str(perplexity)+"/").mkdir(parents=True, exist_ok=True)
         np.save(save_path+"emb_p"+str(perplexity)+"/"+"Xemb_"+str(i), X_emb)
 
 
-# emb_folder = "/home/gorkem/datasets/mnist_subsets/5000/emb_p30/"
-# y_folder = "/home/gorkem/datasets/mnist_subsets/5000/"
-# Xe = np.load(emb_folder+"Xemb_0.npy")
-# y = np.load(y_folder+"y_5000_0.npy")
+from sys import platform
+if platform == "linux" or platform == "linux2":
+    emb_folder = "/home/gorkem/datasets/mnist_subsets/5000/emb_p30/"
+    y_folder = "/home/gorkem/datasets/mnist_subsets/5000/"
+elif platform == "darwin":
+    emb_folder = "/home/gorkem/datasets/mnist_subsets/5000/emb_p30/"
+    y_folder = "/home/gorkem/datasets/mnist_subsets/5000/"
+elif platform == "win32":
+    emb_folder = "C:/Users/gsayg/Dropbox/datasets/mnist_subsets/5000/emb_p30/"
+    y_folder = "C:/Users/gsayg/Dropbox/datasets/mnist_subsets/5000/"
+
+# apply_tsne_subsets(mnist_folder="C:/Users/gsayg/Dropbox/datasets/")
+# Xe = np.load(emb_folder+"Xemb_2.npy")
+# y = np.load(y_folder+"y_5000_2.npy")
 # plot_embedding(Xe, y)
 
 

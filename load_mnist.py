@@ -57,7 +57,7 @@ def mnist_subset(mnist_folder="/home/gorkem/datasets/", size=5000, is_train=True
     else:
         mnist_testset = datasets.MNIST(root=mnist_folder, train=False, download=True, transform=None)
         X_test = mnist_testset.data.numpy()
-        y_test = mnist_testset.data.numpy()
+        y_test = mnist_testset.targets.numpy()
         sX, sy = create_subset(X_test, y_test, size=size)
     return sX, sy
 
@@ -71,9 +71,11 @@ def mnist_subsets(mnist_folder="/home/gorkem/datasets/", size=5000, is_train=Tru
         mnist_trainset = datasets.MNIST(root=mnist_folder, train=True, download=True, transform=None)
         X_train = mnist_trainset.data.numpy()
         y_train = mnist_trainset.targets.numpy()
-        return create_subsets(data=X_train, labels=y_train, size=size, is_save=is_save)
+        return create_subsets(data=X_train, labels=y_train, size=size, is_save=is_save,
+                              save_path=mnist_folder+'mnist_subsets/')
     else:
         mnist_testset = datasets.MNIST(root=mnist_folder, train=False, download=True, transform=None)
         X_test = mnist_testset.data.numpy()
-        y_test = mnist_testset.data.numpy()
-        return create_subsets(data=X_test, labels=y_test, size=size, is_save=is_save)
+        y_test = mnist_testset.targets.numpy()
+        return create_subsets(data=X_test, labels=y_test, size=size, is_save=is_save,
+                              save_path=mnist_folder+'mnist_subsets/')
