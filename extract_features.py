@@ -54,7 +54,7 @@ def extract_feats(K=20, sample_id=0,
             cost = X_D[i, :]
             s_D = sort_D[i, 1:K + 1]
             s_d = cost[sort_index_d[i, 1:K + 1]]
-            features[i, :, ind] = normalize(np.abs(s_D - s_d))
+            features[i, :, ind] = np.abs(s_D - s_d)
 
         print(np.any(np.isnan(features)))
         print("--- " + c + " takes: %s seconds ---" % (time.time() - start_time))
