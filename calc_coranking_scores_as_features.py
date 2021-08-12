@@ -44,3 +44,12 @@ start_time = time.time()
 T, C, QNN, AUC, LCMC, kmax, Qlocal, Qglobal = crank.coranking_matrix_metrics(Q)
 print("--- co-ranking features takes: %s seconds ---" % (time.time() - start_time))
 
+# save path
+np.save(emb_folder + "corank_T_" + str(sample_id), T)
+np.save(emb_folder + "corank_C_" + str(sample_id), C)
+np.save(emb_folder + "corank_QNN_" + str(sample_id), QNN)
+np.save(emb_folder + "corank_AUC_" + str(sample_id), AUC)
+np.save(emb_folder + "corank_LCMC_" + str(sample_id), LCMC)
+np.save(emb_folder + "corank_kmax_" + str(sample_id), kmax)
+np.save(emb_folder + "corank_Qlocal_" + str(sample_id), Qlocal)
+np.save(emb_folder + "corank_Qglobal_" + str(sample_id), Qglobal)
