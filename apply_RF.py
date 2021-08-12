@@ -33,7 +33,7 @@ elif platform == "win32":
 # test parameters
 train_id = 0
 test_id = 1
-B = 10
+B = 0
 
 X_tr = np.load(emb_folder + "Xemb_"+str(train_id)+".npy")
 y_tr = np.load(y_folder + "y_5000_"+str(train_id)+".npy")
@@ -61,7 +61,7 @@ y_test = np.zeros(X_te.shape[0])
 y_test[y_te_ind] = 1
 
 grid = GridSearchCV(RandomForestClassifier(random_state=42, n_jobs=-1),
-                    param_grid, refit=True, verbose=0, cv=3,
+                    param_grid, refit=True, verbose=0, cv=10,
                     scoring=sensitivity, n_jobs=-1)
 grid.fit(x_train, y_train)
 clf = grid.best_estimator_

@@ -1,7 +1,6 @@
 import numpy as np
 import scipy.spatial.distance as dist
 import time
-from sklearn import preprocessing
 from sys import platform
 
 
