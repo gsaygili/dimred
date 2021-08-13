@@ -18,7 +18,7 @@ def ranking_matrix(D):
                 if (D[i, k] < D[i, j]) or (math.isclose(D[i, k], D[i, j]) and k < j):
                     Rij += 1
             R[i, j] = Rij
-
+        print(i)
     return R
 
 
@@ -39,7 +39,7 @@ def coranking_matrix(R1, R2):
 
 
 def coranking_matrix_metrics(Q):
-    Q = Q[1:, 1:]
+    # Q = Q[1:, 1:] # already done
     m = len(Q)
 
     T = np.zeros(m - 1)  # trustworthiness
