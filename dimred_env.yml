@@ -19,3 +19,4 @@ dependencies:
   - cython
   - pip:
       - pip install git+https://github.com/samueljackson92/coranking.git
+      - pip install cantools
