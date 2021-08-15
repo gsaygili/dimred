@@ -10,7 +10,7 @@ from sklearn.metrics import make_scorer
 from sklearn.metrics import recall_score
 from sklearn.metrics import roc_curve, auc, accuracy_score, confusion_matrix
 import pandas as pd
-
+import pickle
 
 sensitivity = make_scorer(recall_score, pos_label=1)
 param_grid = {
@@ -68,6 +68,9 @@ clf = grid.best_estimator_
 clf.fit(x_train, y_train)
 y_pred = clf.predict(x_test)
 y_prob = clf.predict_proba(x_test)
+
+filename = emb_folder + "rf_model_" + str(train_id) + ".sav"
+pickle.dump(clf, open(filename, 'wb'))
 
 # ------------------------------
 acc = accuracy_score(y_test, y_pred)

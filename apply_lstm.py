@@ -35,7 +35,7 @@ def evaluate_model_lstm(X_train, y_train, X_test, y_test, n_features):
     y_prdlabel = model.predict_classes(X_test, batch_size=bsize)
     score = model.evaluate(X_test, y_test, batch_size=bsize)
     print("Accuracy: %.2f%%" % (score[1] * 100))
-    return score[1], y_predict, model, y_prdlabel, history
+    return score[1], y_predict, model, y_prdlabel, history, model
 
 
 if platform == "linux" or platform == "linux2":
@@ -77,7 +77,8 @@ y_te_ind = err.find_errors_majority(X_te, y_te)
 y_test = np.zeros(X_te.shape[0])
 y_test[y_te_ind] = 1
 
-acc, y_predict, model, y_label, history = evaluate_model_lstm(x_train, y_train, x_test, y_test, x_train.shape[2])
+acc, y_predict, model, y_label, history, model = evaluate_model_lstm(x_train, y_train, x_test, y_test, x_train.shape[2])
+model.save(emb_folder+"lstm_model_"+str(train_id))
 print("accuracy: ", acc)
 print('accuracy: ', accuracy_score(y_test, y_label))
 plt.plot(history.history['loss'])
