@@ -14,6 +14,10 @@ Then use:
 
 Everything is ready to go!
 
+Datasets:
+1) MNIST
+2) https://zenodo.org/record/4557712#.YUbplLgzZPY (AMB_integrated.zip)
+
 -> use Neighborhood Preservation Ratio (NPR)[1] as the target score to predict:
 NPR: "For each word i, we measure the ratio of k similar words in the association data" [1]
 -> choose k as 20.
