@@ -1,0 +1,10 @@
+Metadata-Version: 1.0
+Name: densenet
+Version: 0.5
+Summary: An implementation of DenseNet for 1D inputs in Keras.
+Home-page: https://github.com/ankitvgupta/densenet_1d
+Author: Ankit Gupta
+Author-email: ankitgupta@alumni.harvard.edu
+License: MIT
+Description: UNKNOWN
+Platform: UNKNOWN

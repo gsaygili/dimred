@@ -70,4 +70,14 @@ elif platform == "win32":
 # y = np.load(y_folder+"y_5000_2.npy")
 # plot_embedding(Xe, y)
 
+#For ovarian data
+perplexity=30;
+def tsne_p2(data, dim=2, perplexity=30):
+    X_embedded = TSNE(n_components=dim, perplexity=perplexity).fit_transform(data)
+    return X_embedded
+X_emb=tsne_p2(data, 2, perplexity)
+# create an embedding subfolder and save with perplexity info
+save_path="C:/Users/Admin/Documents/GitHub/dimred/datasets/Ovarian-PBSII-061902/"
+Path(save_path+"emb_p"+str(perplexity)+"/").mkdir(parents=True, exist_ok=True)
+np.save(save_path+"emb_p"+str(perplexity)+"/"+"Xemb", X_emb)
 

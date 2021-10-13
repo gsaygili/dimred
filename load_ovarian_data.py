@@ -5,11 +5,11 @@ from sys import platform
 
 
 if platform == "linux" or platform == "linux2":
-    data_folder = "/home/gorkem/datasets/"
+    data_folder = "C:/Users/Admin/Documents/GitHub/dimred/datasets/Ovarian-PBSII-061902/"
 elif platform == "darwin":
-    data_folder = "/home/gorkem/datasets/"
+    data_folder = "C:/Users/Admin/Documents/GitHub/dimred/datasets/Ovarian-PBSII-061902/"
 elif platform == "win32":
-    data_folder = "C:/Users/gsayg/Dropbox/datasets/ovarian-cancer-nci-pbsii-data/"
+    data_folder = "C:/Users/Admin/Documents/GitHub/dimred/datasets/Ovarian-PBSII-061902/"
 
 data = pd.read_csv(data_folder+"ovarian-cancer-nci-pbsii-data-no-header.csv").to_numpy()
-
+np.save(data_folder+'emb_p30/' + "X", data)

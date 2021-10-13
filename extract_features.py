@@ -25,14 +25,14 @@ def normalize_mat(mat, t_min=0, t_max=1):
 def extract_feats(K=20, sample_id=0,
                   distance_measures=["euclidean", "cosine", "correlation", "chebyshev", "canberra", "braycurtis"]):
     if platform == "linux" or platform == "linux2":
-        emb_folder = "/home/gorkem/datasets/mnist_subsets/5000/emb_p30/"
-        y_folder = "/home/gorkem/datasets/mnist_subsets/5000/"
+        emb_folder = "C:/Users/Admin/Documents/GitHub/dimred/datasets/mnist_subsets/5000/emb_p30/"
+        y_folder = "C:/Users/Admin/Documents/GitHub/dimred/datasets/mnist_subsets/5000/"
     elif platform == "darwin":
-        emb_folder = "/home/gorkem/datasets/mnist_subsets/5000/emb_p30/"
-        y_folder = "/home/gorkem/datasets/mnist_subsets/5000/"
+        emb_folder = "C:/Users/Admin/Documents/GitHub/dimred/datasets/mnist_subsets/5000/emb_p30/"
+        y_folder = "C:/Users/Admin/Documents/GitHub/dimred/datasets/mnist_subsets/5000/"
     elif platform == "win32":
-        emb_folder = "C:/Users/gsayg/Dropbox/datasets/mnist_subsets/5000/emb_p30/"
-        y_folder = "C:/Users/gsayg/Dropbox/datasets/mnist_subsets/5000/"
+        emb_folder = "C:/Users/Admin/Documents/GitHub/dimred/datasets/mnist_subsets/5000/emb_p30/"
+        y_folder = "C:/Users/Admin/Documents/GitHub/dimred/datasets/mnist_subsets/5000/"
 
     Xe = np.load(emb_folder + "Xemb_" + str(sample_id) + ".npy")
     X = np.load(y_folder + "X_5000_" + str(sample_id) + ".npy")
