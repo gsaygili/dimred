@@ -39,14 +39,14 @@ def evaluate_model_lstm(X_train, y_train, X_test, y_test, n_features):
 
 
 if platform == "linux" or platform == "linux2":
-    emb_folder = "C:/Users/Admin/Documents/GitHub/dimred/datasets/mnist_subsets/5000/emb_p30/"
-    y_folder = "C:/Users/Admin/Documents/GitHub/dimred/datasets/mnist_subsets/5000/"
+    emb_folder = "/home/gorkem/datasets/mnist_subsets/5000/emb_p30/"
+    y_folder = "/home/gorkem/datasets/mnist_subsets/5000/"
 elif platform == "darwin":
-    emb_folder = "C:/Users/Admin/Documents/GitHub/dimred/datasets/mnist_subsets/5000/emb_p30/"
-    y_folder = "C:/Users/Admin/Documents/GitHub/dimred/datasets/mnist_subsets/5000/"
+    emb_folder = "/home/gorkem/datasets/mnist_subsets/5000/emb_p30/"
+    y_folder = "/home/gorkem/datasets/mnist_subsets/5000/"
 elif platform == "win32":
-    emb_folder = "C:/Users/Admin/Documents/GitHub/dimred/datasets/mnist_subsets/5000/emb_p30/"
-    y_folder = "C:/Users/Admin/Documents/GitHub/dimred/datasets/mnist_subsets/5000/"
+    emb_folder = "C:/Users/gsayg/Dropbox/datasets/mnist_subsets/5000/emb_p30/"
+    y_folder = "C:/Users/gsayg/Dropbox/datasets/mnist_subsets/5000/"
 
 
 # test parameters
