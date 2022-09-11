@@ -1,5 +1,5 @@
-## Confidence estimation for t‑SNE embeddings using random forest
-# B. Ozgode Yigin and Gorkem Saygili
+# Confidence estimation for t‑SNE embeddings using random forest
+## B. Ozgode Yigin and Gorkem Saygili
 
 Abstract:
 Dimensionality reduction algorithms are commonly used for reducing the dimension of multi-dimensional data to visualize them on a standard display. Although many dimensionality reduction algorithms such as the t-distributed Stochastic Neighborhood Embedding aim to preserve close neighborhoods in low-dimensional space, they might not accomplish that for every sample of the data and eventually produce erroneous representations. In this study, we developed a supervised confidence estimation algorithm for detecting erroneous samples in embeddings. Our algorithm generates a confidence score for each sample in an embedding based on a distance-oriented score and a random forest regressor. We evaluate its performance on both intra- and inter-domain data and compare it with the neighborhood preservation ratio as our baseline. Our results showed that the resulting confidence score provides distinctive information about the correctness of any sample in an embedding compared to the baseline.
