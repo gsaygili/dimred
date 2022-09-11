@@ -6,7 +6,7 @@ Dimensionality reduction algorithms are commonly used for reducing the dimension
 
 This code is the code of our journal publication:
 
-[1] B. Ozgode Yigin and G. Saygili, "Confidence estimation for t‑SNE embeddings using random forest", International Journal of Machine Learning and Cybernetics, 2022.
+***[1] B. Ozgode Yigin and G. Saygili, "Confidence estimation for t‑SNE embeddings using random forest", International Journal of Machine Learning and Cybernetics, 2022.
 
 Online available at:
 https://link.springer.com/epdf/10.1007/s13042-022-01635-2?sharing_token=WHF414GgNmjoADmQasLa7ve4RwlQNchNByi7wbcMAY6tDVkBbSh45DjuKj43hFV3qga3b1UQE3Pb40D4zTiNcmW-0XY48mK9eedXGpzQbnRQ2y9SzJ9XZy8ZR0Z1JFgVtRhfTcs2HrmxHLausl2NjiPB9Y-igogtNeoT0-xTmV8%3D
