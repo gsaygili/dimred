@@ -20,6 +20,10 @@ Datasets:
 1) MNIST
 2) https://zenodo.org/record/4557712#.YUbplLgzZPY (AMB_integrated.zip)
 
+
+*** Important Note: This code is under MIT License:***
+***THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.***
+
 How to use:
 - You can run conf_pred_with_existing_model function for using pre-trained existing models on AMB18 and MNIST dataset on your test set.
 - You can run conf_pred_with_training function for training your own model on your own training set and make confidence predictions on your test set.
