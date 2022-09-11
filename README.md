@@ -14,7 +14,6 @@ https://link.springer.com/epdf/10.1007/s13042-022-01635-2?sharing_token=WHF414Gg
 ***Please cite our paper [1] in case you use the code.***
 
 Created by Busra Ozgode Yigin and Gorkem Saygili on 11-09-22.
-Copyright (c) 2022 Tilburg University. All rights reserved.
 
 Datasets:
 1) MNIST
